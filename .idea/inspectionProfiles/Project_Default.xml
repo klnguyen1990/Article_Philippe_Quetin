@@ -1,0 +1,26 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="numpy" />
+          <option value="scipy" />
+          <option value="pydicom" />
+          <option value="pandas" />
+          <option value="openpyxl" />
+          <option value="SimpleITK" />
+          <option value="opencv-python" />
+          <option value="matplotlib" />
+          <option value="xlwings" />
+          <option value="pynrrd" />
+          <option value="nibabel" />
+          <option value="h5py" />
+          <option value="scikit-learn" />
+          <option value="scikit-image" />
+          <option value="tensorflow" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
