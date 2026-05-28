@@ -212,12 +212,12 @@ def compute_all_metrics(pred_path, gt_path, original_shape, ps_gt, class_id=2):
 # ==========================================================
 # BATCH PROCESSING
 # ==========================================================
-pred_dir = r"C:\Users\nguyen\Desktop\Neobrain\DATASET_Neobrain\unetr_pp_results\inferTs"
-#pred_dir = r"C:\Users\nguyen\Desktop\postdoc_CREATIS_Lyon\Review article Philippe Quentin\unet_VL&TL_trained\results"
+#pred_dir = r"C:\Users\nguyen\Desktop\Neobrain\DATASET_Neobrain\unetr_pp_results\inferTs"
+pred_dir = r"C:\Users\nguyen\Desktop\postdoc_CREATIS_Lyon\Review article Philippe Quentin\vnet_VL&TL_trained\results"
 gt_dir = r"C:\Users\nguyen\Desktop\DATASET_Neobrain\unetr_pp_raw\unetr_pp_raw_data\Task002_Neobrain\labelsTs"
 
-files = sorted([f for f in os.listdir(pred_dir) if f.endswith(".nii.gz")])
-#files = sorted([f for f in os.listdir(pred_dir) if f.endswith(".nii")])
+#files = sorted([f for f in os.listdir(pred_dir) if f.endswith(".nii.gz")])
+files = sorted([f for f in os.listdir(pred_dir) if f.endswith(".nii")])
 all_res = []
 
 h = f"{'Patient':<20} | {'Dice':<6} | {'ΔVr %':<8} | {'Volume':<6} | {'HD':<6} | {'MAD':<6} | {'C_Abs':<7} | {'Z_Grad':<8}"
@@ -246,15 +246,16 @@ original_shape = {"Patient37_J10_49":[759, 849, 810],
 }
 
 for f in files:
-    res = compute_all_metrics(os.path.join(pred_dir, f), os.path.join(gt_dir, f), original_shape[splitext(splitext(basename(f))[0])[0]], ps_gt[splitext(splitext(basename(f))[0])[0]])
-    #res = compute_all_metrics(os.path.join(pred_dir, f), os.path.join(gt_dir, f.replace('.nii','.nii.gz')),ps_gt[splitext(basename(f))[0]])
+    if splitext(splitext(basename(f))[0])[0] != "Patient49_J12_22":
+        #res = compute_all_metrics(os.path.join(pred_dir, f), os.path.join(gt_dir, f), original_shape[splitext(splitext(basename(f))[0])[0]], ps_gt[splitext(splitext(basename(f))[0])[0]])
+        res = compute_all_metrics(os.path.join(pred_dir, f), os.path.join(gt_dir, f.replace('.nii','.nii.gz')),original_shape[splitext(basename(f))[0]], ps_gt[splitext(basename(f))[0]])
     
-    if res:
-        all_res.append(res)
-        print(f"{f[:20]:<20} | {res['Dice']:6.2f} | {res['DeltaVR']:8.2f} | "
-              f"{res['Volume']:6.2f} | "
-              f"{res['HD']:6.2f} | {res['MAD']:6.2f} | "
-              f"{res['Curv_Abs']:7.2f} | {res['Z_Grad_Abs']:8.4f}")
+        if res:
+            all_res.append(res)
+            print(f"{f[:20]:<20} | {res['Dice']:6.2f} | {res['DeltaVR']:8.2f} | "
+                  f"{res['Volume']:6.2f} | "
+                  f"{res['HD']:6.2f} | {res['MAD']:6.2f} | "
+                  f"{res['Curv_Abs']:7.2f} | {res['Z_Grad_Abs']:8.4f}")
 
 
 # ==========================================================
